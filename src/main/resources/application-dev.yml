@@ -1,0 +1,20 @@
+# 数据库配置
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/wechat_company?useUnicode=true&characterEncoding=utf-8
+      username: root
+      password: root
+
+# 企业微信相关配置
+wechat:
+  company:
+    corpId: 1234
+    secret: 2345
+    privateKey: abcdefg
+    app:
+      agentId: 11111
+      secret: qwert
+      token: asdf
+      aesKey: qwer

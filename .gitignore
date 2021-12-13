@@ -1,0 +1,12 @@
+target/
+logs/
+
+.git
+.idea
+.DS_Store
+
+*.class
+*.iml
+*.iws
+*.ipr
+

@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: wechat-company
+  profiles:
+    active: @environment@
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    restart:
+      enabled: true
+    info:
+      enabled: true
