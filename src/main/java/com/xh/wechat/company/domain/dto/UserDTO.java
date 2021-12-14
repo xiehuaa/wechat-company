@@ -18,5 +18,15 @@ public class UserDTO extends User {
     /**
      * 对外属性列表
      */
-    List<UserExternalAttributeDTO> externalAttributeList;
+    private List<UserExternalAttributeDTO> externalAttributeList;
+
+    /**
+     * 部门列表
+     */
+    private List<Long> departmentIdList;
+
+    /**
+     * 主要部门id
+     */
+    private Long mainDepartmentId;
 }

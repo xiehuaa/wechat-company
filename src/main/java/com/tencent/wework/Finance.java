@@ -151,10 +151,10 @@ public class Finance {
                     .replaceFirst("/", "")
                     .replace("/", "\\\\");
 
-            System.load(path.concat("libcrypto-1_1-x64.dll"));
-            System.load(path.concat("libssl-1_1-x64.dll"));
-            System.load(path.concat("libcurl-x64.dll"));
-            System.load(path.concat("WeWorkFinanceSdk.dll"));
+            System.load(path.concat("lib/libcrypto-1_1-x64.dll"));
+            System.load(path.concat("lib/libssl-1_1-x64.dll"));
+            System.load(path.concat("lib/libcurl-x64.dll"));
+            System.load(path.concat("lib/WeWorkFinanceSdk.dll"));
         } else {
             System.load("/tmp/libWeWorkFinanceSdk_Java.so");
         }

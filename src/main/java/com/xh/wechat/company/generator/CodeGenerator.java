@@ -38,7 +38,7 @@ public class CodeGenerator {
 
     private static final String TEMPLATE_PATH = "/templates/mapper.xml.ftl";
 
-    private static final String[] TABLES = {"pe_user_external_attribute"};
+    private static final String[] TABLES = {"pe_single_chat_message"};
     private static final String[] TABLE_PREFIX = {"pe_", "pr_"};
 
     public static void main(String[] args) {

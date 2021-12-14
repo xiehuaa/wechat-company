@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xh.wechat.company.domain.dto.UserDTO;
 import com.xh.wechat.company.domain.entity.User;
 import com.xh.wechat.company.mapper.UserMapper;
+import com.xh.wechat.company.service.IUserDepartmentService;
 import com.xh.wechat.company.service.IUserExternalAttributeService;
 import com.xh.wechat.company.service.IUserService;
 import org.springframework.beans.BeanUtils;
@@ -27,6 +28,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Resource
     private IUserExternalAttributeService userExternalAttributeService;
 
+    @Resource
+    private IUserDepartmentService userDepartmentService;
+
     @Override
     public Boolean saveOrUpdate(UserDTO userDTO) {
         User dbUser = this.getByUserId(userDTO.getUserId());
@@ -40,6 +44,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             this.updateById(user);
         }
         userExternalAttributeService.save(userDTO.getUserId(), userDTO.getExternalAttributeList());
+        userDepartmentService.resetUserDepartment(userDTO.getUserId(), userDTO.getDepartmentIdList(), userDTO.getMainDepartmentId());
         return Boolean.TRUE;
     }
 

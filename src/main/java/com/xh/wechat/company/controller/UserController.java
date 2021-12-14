@@ -1,5 +1,6 @@
 package com.xh.wechat.company.controller;
 
+import com.xh.wechat.company.domain.dto.DepartmentDTO;
 import com.xh.wechat.company.domain.dto.UserDTO;
 import com.xh.wechat.company.domain.result.R;
 import com.xh.wechat.company.service.IUserService;
@@ -36,8 +37,16 @@ public class UserController {
     @GetMapping(value = "/sync", produces = MediaType.APPLICATION_JSON_VALUE)
     public R<Boolean> sync(@ApiParam("企业微信应用id") @RequestParam Integer agentId,
                            @ApiParam("企业微信部门id") @RequestParam(required = false) Long departmentId) {
-        List<UserDTO> userDTOList = wxCpHelpService.userList(agentId, departmentId, true);
-        userDTOList.forEach(userDTO -> userService.saveOrUpdate(userDTO));
+        if (departmentId != null) {
+            List<UserDTO> userDTOList = wxCpHelpService.userList(agentId, departmentId, true);
+            userDTOList.forEach(userDTO -> userService.saveOrUpdate(userDTO));
+        } else {
+            List<DepartmentDTO> departmentList = wxCpHelpService.departmentList(agentId, null);
+            departmentList.forEach(department -> {
+                List<UserDTO> userDTOList = wxCpHelpService.userList(agentId, department.getDepartmentId(), false);
+                userDTOList.forEach(userDTO -> userService.saveOrUpdate(userDTO));
+            });
+        }
 
         return R.success(Boolean.TRUE);
     }

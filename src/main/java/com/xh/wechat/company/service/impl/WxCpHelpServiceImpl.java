@@ -23,10 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Create By IntelliJ IDEA
@@ -109,6 +106,12 @@ public class WxCpHelpServiceImpl implements IWxCpHelpService {
             for (WxCpUser wxCpUser : wxCpUsers) {
                 UserDTO userDTO = new UserDTO();
                 BeanUtils.copyProperties(wxCpUser, userDTO);
+                userDTO.setDepartmentIdList(Arrays.asList(wxCpUser.getDepartIds()));
+                long mainDepartmentId = 0L;
+                if (StringUtils.isNotBlank(wxCpUser.getMainDepartment())) {
+                    mainDepartmentId = Long.parseLong(wxCpUser.getMainDepartment());
+                }
+                userDTO.setMainDepartmentId(mainDepartmentId);
                 userDTO.setGender(Integer.parseInt(wxCpUser.getGender().getCode()));
 
                 List<UserExternalAttributeDTO> externalAttributeList = new ArrayList<>();

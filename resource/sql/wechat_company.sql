@@ -95,3 +95,22 @@ CREATE TABLE `pe_external_user_follow` (
   KEY `idx_user_id` (`user_id`) USING BTREE,
   KEY `idx_external_user_id` (`external_user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='外部联系人和成员关系表';
+
+CREATE TABLE `pe_single_chat_message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `msg_id` varchar(200) NOT NULL DEFAULT '' COMMENT '消息id',
+  `action` varchar(20) NOT NULL DEFAULT '' COMMENT '消息动作send/recall/switch',
+  `user_id` varchar(50) NOT NULL DEFAULT '' COMMENT '企业微信成员id',
+  `external_user_id` varchar(100) NOT NULL DEFAULT '' COMMENT '企业微信外部联系人id',
+  `from_type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '发送方 1成员 2外部联系人',
+  `msg_type` varchar(50) NOT NULL DEFAULT '' COMMENT '消息类型',
+  `send_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '消息发送时间',
+  `content` longtext COMMENT '消息内容',
+  `file_url` varchar(255) NOT NULL DEFAULT '' COMMENT '文件地址',
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `modified_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`) USING BTREE,
+  KEY `idx_external_user_id` (`external_user_id`) USING BTREE,
+  KEY `idx_send_time` (`send_time`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='企业微信单聊消息';
