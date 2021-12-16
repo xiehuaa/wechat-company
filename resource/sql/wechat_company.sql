@@ -114,3 +114,21 @@ CREATE TABLE `pe_single_chat_message` (
   KEY `idx_external_user_id` (`external_user_id`) USING BTREE,
   KEY `idx_send_time` (`send_time`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='企业微信单聊消息';
+
+CREATE TABLE `pe_transfer_user_record` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `handover_user_id` varchar(100) NOT NULL DEFAULT '' COMMENT '被接替的成员id',
+  `takeover_user_id` varchar(100) NOT NULL DEFAULT '' COMMENT '接替的成员id',
+  `external_user_id` varchar(100) NOT NULL DEFAULT '' COMMENT '外部联系人id',
+  `transfer_type` tinyint(2) NOT NULL DEFAULT '0' COMMENT '接替类型 1在职 2离职',
+  `result_code` int(11) NOT NULL DEFAULT '0' COMMENT '接替响应码',
+  `result_msg` varchar(255) NOT NULL DEFAULT '' COMMENT '接替响应消息',
+  `is_success` tinyint(2) NOT NULL DEFAULT '0' COMMENT '是否成功 0否 1是',
+  `fail_reason` varchar(50) NOT NULL DEFAULT '' COMMENT '失败原因',
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `modified_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_handover_user_id` (`handover_user_id`) USING BTREE,
+  KEY `idx_takeover_user_id` (`takeover_user_id`) USING BTREE,
+  KEY `idx_external_user_id` (`external_user_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='接替客户记录表';
